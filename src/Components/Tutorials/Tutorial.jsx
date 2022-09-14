@@ -1,89 +1,89 @@
-import React, { Component } from 'react'
-import 'bootstrap/dist/css/bootstrap.min.css'
-import axios from 'axios'
-import Card from 'react-bootstrap/Card'
-import StaticHeader from '../StaticHeader/StaticHeader'
-import { Link } from 'react-router-dom'
-import { Player, ControlBar, BigPlayButton } from 'video-react'
-import 'video-react/dist/video-react.css'
-import CommonError from '../Error/CommonError'
+import React, { Component } from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
+import axios from "axios";
+import Card from "react-bootstrap/Card";
+import StaticHeader from "../StaticHeader/StaticHeader";
+import { Link } from "react-router-dom";
+import { Player, ControlBar, BigPlayButton } from "video-react";
+import "video-react/dist/video-react.css";
+import CommonError from "../Error/CommonError";
 
 class Tutorial extends Component {
   componentDidMount() {
     axios
-      .get('http://localhost:4000/app/videos')
+      .get("http://localhost:4000/app/videos")
       .then((videos) => {
-        this.setState(videos.data)
+        this.setState(videos.data);
       })
       .catch((err) => {
-        this.setState({ error: <CommonError err></CommonError> })
-      })
+        this.setState({ error: <CommonError err></CommonError> });
+      });
   }
 
   constructor() {
-    super()
-    this.state = {}
-    this.createCategorizedVideos = this.createCategorizedVideos.bind(this)
-    this.newVideo = this.newVideo.bind(this)
-    this.getVideo = this.getVideo.bind(this)
+    super();
+    this.state = {};
+    this.createCategorizedVideos = this.createCategorizedVideos.bind(this);
+    this.newVideo = this.newVideo.bind(this);
+    this.getVideo = this.getVideo.bind(this);
   }
 
   addCategory(category, videoCategory) {
     let element = {
       Category: videoCategory,
       Videos: [],
-    }
-    category.push(element)
-    return category
+    };
+    category.push(element);
+    return category;
   }
 
   getCategories() {
-    let categories = []
+    let categories = [];
     if (this.state.videos) {
       this.state.videos.forEach((video) => {
         if (categories.length == 0) {
-          categories = this.addCategory(categories, video.videoCategory)
+          categories = this.addCategory(categories, video.videoCategory);
         } else {
-          let categoryfound = false
+          let categoryfound = false;
           categories.forEach((category) => {
             if (category.Category == video.videoCategory) {
-              categoryfound = true
+              categoryfound = true;
             }
-          })
+          });
           if (!categoryfound) {
-            categories = this.addCategory(categories, video.videoCategory)
+            categories = this.addCategory(categories, video.videoCategory);
           }
         }
-      })
+      });
     }
-    return categories
+    return categories;
   }
 
   createCategorizedVideos() {
-    let categories = this.getCategories()
+    let categories = this.getCategories();
     categories.forEach((element) => {
       this.state.videos.filter((video) => {
         if (video.videoCategory === element.Category) {
-          element.Videos.push(video)
+          element.Videos.push(video);
         }
-      })
-    })
-    return categories
+      });
+    });
+    return categories;
   }
 
   newVideo() {
-    window.location.assign('/newTutorial')
+    window.location.assign("/newTutorial");
   }
 
   getVideo(element) {
-    console.log(element)
+    console.log(element);
     return (
       <Player>
-        <source src={'http://localhost:4000/app/vid/' + element._id}></source>
+        <source src={"http://localhost:4000/app/vid/" + element._id}></source>
         <BigPlayButton position="center" />
         <ControlBar autoHide={true} />
       </Player>
-    )
+    );
   }
 
   render() {
@@ -125,8 +125,8 @@ class Tutorial extends Component {
         </div>
         {this.state.error}
       </div>
-    )
+    );
   }
 }
 
-export default Tutorial
+export default Tutorial;

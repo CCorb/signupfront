@@ -1,43 +1,43 @@
-import React, { Component } from 'react'
-import 'bootstrap/dist/css/bootstrap.min.css'
-import axios from 'axios'
-import Contracts from '../Contracts/Contracts'
-import { BrowserRouter, Link, Route, Switch } from 'react-router-dom'
-import Tutorial from '../Tutorials/Tutorial'
-import PersonalData from '../PersonalData/PersonalData'
-import Calendar from '../Calendar/Calendar'
-import Card from 'react-bootstrap/Card'
-import { FaPlayCircle, FaFileContract } from 'react-icons/fa'
-import { BsCalendar, BsPersonSquare } from 'react-icons/bs'
-import StaticHeader from '../StaticHeader/StaticHeader'
-import CommonError from '../Error/CommonError'
+import React, { Component } from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
+import axios from "axios";
+import Contracts from "../Contracts/Contracts";
+import { BrowserRouter, Link, Route, Switch } from "react-router-dom";
+import Tutorial from "../Tutorials/Tutorial";
+import PersonalData from "../PersonalData/PersonalData";
+import Calendar from "../Calendar/Calendar";
+import Card from "react-bootstrap/Card";
+import { FaPlayCircle, FaFileContract } from "react-icons/fa";
+import { BsCalendar, BsPersonSquare } from "react-icons/bs";
+import StaticHeader from "../StaticHeader/StaticHeader";
+import CommonError from "../Error/CommonError";
 
 class Home extends Component {
   componentDidMount() {
-    console.log(this.id)
+    console.log(this.id);
     if (this.id)
       axios
-        .get('http://localhost:4000/app/user/' + this.id)
+        .get("http://localhost:4000/app/user/" + this.id)
         .then((user) => {
-          this.setState(user.data)
+          this.setState(user.data);
         })
         .catch((err) => {
-          this.setState({ error: <CommonError err></CommonError> })
-        })
+          this.setState({ error: <CommonError err></CommonError> });
+        });
   }
 
   constructor() {
-    super()
-    this.state = {}
-    this.id = ''
-    const queryParams = new URLSearchParams(window.location.search)
+    super();
+    this.state = {};
+    this.id = "";
+    const queryParams = new URLSearchParams(window.location.search);
 
     if (queryParams) {
-      this.id = queryParams.get('id')
+      this.id = queryParams.get("id");
     }
 
-    this.renderUserPanel = this.renderUserPanel.bind(this)
-    this.renderAdminPanel = this.renderAdminPanel.bind(this)
+    this.renderUserPanel = this.renderUserPanel.bind(this);
+    this.renderAdminPanel = this.renderAdminPanel.bind(this);
   }
 
   renderUserPanel() {
@@ -55,7 +55,7 @@ class Home extends Component {
                 </Card.Body>
               </Card>
             </Link>
-            <Link to={'/Appointments?id=' + this.id}>
+            <Link to={"/Appointments?id=" + this.id}>
               <Card className="card-element">
                 <Card.Title>Beratungstermine</Card.Title>
                 <Card.Body>
@@ -63,7 +63,7 @@ class Home extends Component {
                 </Card.Body>
               </Card>
             </Link>
-            <Link to={'/Settings?id=' + this.id}>
+            <Link to={"/Settings?id=" + this.id}>
               <Card className="card-element">
                 <Card.Title className="card-title">Meine Daten</Card.Title>
                 <Card.Body>
@@ -82,7 +82,7 @@ class Home extends Component {
           </div>
         </nav>
       </div>
-    )
+    );
   }
 
   renderAdminPanel() {
@@ -107,7 +107,7 @@ class Home extends Component {
                 </Card.Body>
               </Card>
             </Link>
-            <Link to={'/Admin/Customers'}>
+            <Link to={"/Admin/Customers"}>
               <Card className="card-element">
                 <Card.Title className="card-title">Kunden verwalten</Card.Title>
                 <Card.Body>
@@ -118,7 +118,7 @@ class Home extends Component {
           </div>
         </nav>
       </div>
-    )
+    );
   }
 
   render() {
@@ -130,7 +130,7 @@ class Home extends Component {
             {this.renderUserPanel()}
             {this.state.error}
           </div>
-        )
+        );
       } else {
         return (
           <div>
@@ -138,12 +138,12 @@ class Home extends Component {
             {this.renderAdminPanel()}
             {this.state.error}
           </div>
-        )
+        );
       }
     } else {
-      return <div>loading...</div>
+      return <div>loading...</div>;
     }
   }
 }
 
-export default Home
+export default Home;

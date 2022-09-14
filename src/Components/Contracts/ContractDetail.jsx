@@ -1,68 +1,68 @@
-import 'react-smart-data-table/dist/react-smart-data-table.css'
-import React, { Component } from 'react'
-import 'bootstrap/dist/css/bootstrap.min.css'
+import "react-smart-data-table/dist/react-smart-data-table.css";
+import React, { Component } from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
 //import SmartDataTable from 'react-smart-data-table'
-import Card from 'react-bootstrap/Card'
-import StaticHeader from '../StaticHeader/StaticHeader'
-import axios from 'axios'
+import Card from "react-bootstrap/Card";
+import StaticHeader from "../StaticHeader/StaticHeader";
+import axios from "axios";
 import {
   BrowserRouter,
   Switch,
   Route,
   Link,
   withRouter,
-} from 'react-router-dom'
-import { FiDownload } from 'react-icons/fi'
-import CommonError from '../Error/CommonError'
+} from "react-router-dom";
+import { FiDownload } from "react-icons/fi";
+import CommonError from "../Error/CommonError";
 
 class ContractDetail extends Component {
   componentDidMount() {
     axios
-      .get('http://localhost:4000/app/contracts/' + this.id)
+      .get("http://localhost:4000/app/contracts/" + this.id)
       .then((contract) => {
-        this.setState(contract.data)
-        console.log('state updated with: ')
-        console.log(contract.data)
+        this.setState(contract.data);
+        console.log("state updated with: ");
+        console.log(contract.data);
       })
       .catch((err) => {
-        this.setState({ error: <CommonError err></CommonError> })
-      })
+        this.setState({ error: <CommonError err></CommonError> });
+      });
   }
 
-  id = ''
+  id = "";
 
   constructor(props) {
-    super()
+    super();
 
-    const queryParams = new URLSearchParams(window.location.search)
+    const queryParams = new URLSearchParams(window.location.search);
 
     if (queryParams) {
-      this.id = queryParams.get('id')
+      this.id = queryParams.get("id");
     }
-    console.log(props)
+    console.log(props);
     if (!this.state)
       this.state = {
         contract: {
-          contractNumber: '',
-          contractName: '',
-          contractDate: '',
-          contractUser: '',
-          contractBinary: '',
-          contractType: '',
-          contractService: '',
+          contractNumber: "",
+          contractName: "",
+          contractDate: "",
+          contractUser: "",
+          contractBinary: "",
+          contractType: "",
+          contractService: "",
           contractBinaries: [
             {
-              documentName: '',
-              documentDate: '',
+              documentName: "",
+              documentDate: "",
             },
           ],
         },
-      }
+      };
     //this.viewContract = this.viewContract.bind(this)
     //this.openDocument = this.openDocument.bind(this)
 
     if (props && props.contract) {
-      this.setState(props)
+      this.setState(props);
     }
   }
   /*
@@ -103,13 +103,15 @@ class ContractDetail extends Component {
   }
 */
   render() {
-    console.log(this.id)
+    console.log(this.id);
 
     return (
       <div>
         <StaticHeader></StaticHeader>
         <div className="container">
-          <h1>Ihre Verträge</h1>
+          <h1>
+            <a href="http://localhost:3000/Contracts">Ihre Verträge</a>
+          </h1>
 
           <h1>{this.state.contract.contractName}</h1>
 
@@ -119,7 +121,7 @@ class ContractDetail extends Component {
                 <div className="card-title">
                   <Link
                     to={{
-                      pathname: '/contractdetail/basisdata',
+                      pathname: "/contractdetail/basisdata",
                       state: this.state,
                     }}
                   >
@@ -130,7 +132,7 @@ class ContractDetail extends Component {
                 <div className="card-title ">
                   <Link
                     to={{
-                      pathname: '/contractdetail/performance',
+                      pathname: "/contractdetail/performance",
                       state: this.state,
                     }}
                   >
@@ -141,7 +143,7 @@ class ContractDetail extends Component {
                 <div className="card-title">
                   <Link
                     to={{
-                      pathname: '/contractdetail/services',
+                      pathname: "/contractdetail/services",
                       state: this.state,
                       id: this.state.contract._id,
                     }}
@@ -153,7 +155,7 @@ class ContractDetail extends Component {
                 <div className="card-title">
                   <Link
                     to={{
-                      pathname: '/contractdetail/documents',
+                      pathname: "/contractdetail/documents",
                       state: this.state,
                       id: this.state.contract._id,
                     }}
@@ -171,8 +173,8 @@ class ContractDetail extends Component {
         </div>
         {this.state.error}
       </div>
-    )
+    );
   }
 }
 
-export default ContractDetail
+export default ContractDetail;

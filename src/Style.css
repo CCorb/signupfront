@@ -1,5 +1,5 @@
 body {
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 14px;
   font-weight: normal;
   color: #687068;
@@ -70,6 +70,15 @@ body {
 .form-div input {
   margin-top: 1em;
   font-size: 16px;
+}
+
+h1 a {
+  color: #687068;
+}
+
+h1 a:hover {
+  text-decoration: none;
+  color: #586058;
 }
 
 .container h1 {
@@ -345,6 +354,7 @@ body {
   width: 100%;
   border: 1px solid #f00;
   left: 0px;
+  background-color: #fff;
 }
 
 .errorDialog p {
@@ -353,8 +363,11 @@ body {
 
 .errorDialog .closeButton {
   position: absolute;
-  right: 0px;
-  top: 0px;
+  right: 5px;
+  top: 5px;
   font-size: 24px;
   font-weight: 500;
+  cursor: pointer;
+  border: 1px solid #000;
+  padding: 5px;
 }
